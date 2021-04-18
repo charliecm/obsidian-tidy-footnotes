@@ -1,6 +1,6 @@
 # Obsidian Footnotes Indexer
 
-An [Obsidian](https://obsidian.md) plugin that auto indexes footnotes in your file so they are in order of appearance, alphabetical, and consecutively numbered (if applicable).
+An [Obsidian](https://obsidian.md) plugin that adds a command for indexing your footnotes in their order of appearance with consecutive numbering.
 
 ## How to Install
 
@@ -18,6 +18,12 @@ To install this plugin manually, download this repo and copy over `main.js`, `st
 2. `npm i` or `yarn` to install dependencies.
 3. `npm run dev` to start compilation in watch mode.
 4. `bash install-built.sh /path/to/your/vault -d` to create symbolic links of built files to your vault for testing.
+
+## Caveats
+
+- The original footnote definition positions are not maintained. The plugin will always move all definitions to where the first definition is found.
+- Non-numbered foonotes (`[^abc]) doesn't affect re-numbering of adjacent footnote markers when they're indexed.
+- [CodeMirror](https://github.com/codemirror/CodeMirror) is imported for the unit tests. However, it may not match the version Obsidian uses in the future.
 
 ## Support
 
