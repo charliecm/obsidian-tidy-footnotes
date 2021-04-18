@@ -7,8 +7,8 @@ const reDefinition = /\[\^(.+)\]\:/;
 interface Marker {
 	key: string
 	line: number
-	index?: number
-	length?: number
+	index: number
+	length: number
 	isDefinition: boolean
 }
 
@@ -44,11 +44,27 @@ export default class MyPlugin extends Plugin {
 
 				// Iterate through each line
 				const lineCount = doc.lineCount()
+				let prevKey = '';
 				for (let i = 0; i < lineCount; i++) {
 					const line = doc.getLine(i);
 					let isDefinition = false
 					let match;
 
+					if (prevKey.length) {
+						//@ts-ignore
+						const str = new CodeMirror.StringStream(line);
+						const isLastLine = i === (lineCount - 1);
+						if (str.indentation() > 0 || (line.length === 0 && !isLastLine)) {
+							// Append line to the previous footnote definition
+							const value = definitions.get(prevKey);
+							definitions.set(prevKey, value + "\n" + line);
+							markers[markers.length - 1].length++;
+							continue;
+						} else {
+							prevKey = '';
+						}
+					}
+					
 					// Look for footnote definition
 					while ((match = reDefinition.exec(line)) !== null) {
 						if (match.length < 1) return;
@@ -58,10 +74,12 @@ export default class MyPlugin extends Plugin {
 						let key = match[1];
 						let value = line.substring(match[0].length);
 						definitions.set(key, value);
+						prevKey = key
 						let marker: Marker = {
 							key,
 							line: i,
 							index: 0,
+							length: 0,
 							isDefinition: true
 						};
 						markers.push(marker);
@@ -138,14 +156,14 @@ export default class MyPlugin extends Plugin {
 							// Replace first definition line with list of indexed definitions
 							doc.replaceRange(definitionsStr, 
 								{ line: markerLine, ch: 0 },
-								{ line: markerLine + 1, ch: 0}
+								{ line: markerLine + 1 + marker.length, ch: 0}
 							);
 							continue;
 						}
-						// Remove line
+						// Remove line(s)
 						doc.replaceRange('', 
 							{ line: markerLine, ch: 0 },
-							{ line: markerLine + 1, ch: 0}
+							{ line: markerLine + 1 + marker.length, ch: 0}
 						);
 						continue;
 					}
@@ -175,6 +193,8 @@ export default class MyPlugin extends Plugin {
 						{ line: lineCount, ch: Infinity}
 					);
 				}
+
+				// console.log(markers, definitions, definitionsIndexed, definitionsStr);
 			}
 		});
 	}
