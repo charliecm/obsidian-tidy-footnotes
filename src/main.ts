@@ -1,7 +1,7 @@
 import { Plugin, MarkdownView } from 'obsidian';
 import tidyFootnotes from './tidyFootnotes';
 
-export default class MyPlugin extends Plugin {
+export default class TidyFootnotes extends Plugin {
 	async onload() {
 		this.addCommand({
 			id: 'tidy-footnotes',
