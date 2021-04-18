@@ -1,10 +1,9 @@
-import indexFootnotes from './indexFootnotes';
+import tidyFootnotes from './tidyFootnotes';
 import * as CodeMirror from "codemirror";
 
 function getValue(text: string): string {
-  //@ts-ignore
   let doc = CodeMirror.Doc(text);
-  indexFootnotes(doc, CodeMirror);
+  tidyFootnotes(doc, CodeMirror);
   return doc.getValue().trim();
 }
 

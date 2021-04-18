@@ -1,19 +1,19 @@
 import { Plugin, MarkdownView } from 'obsidian';
-import indexFootnotes from './indexFootnotes';
+import tidyFootnotes from './tidyFootnotes';
 
 export default class MyPlugin extends Plugin {
 	async onload() {
 		this.addCommand({
-			id: 'index-footnotes',
-			name: 'Index Footnotes',
+			id: 'tidy-footnotes',
+			name: 'Tidy Footnotes',
 			checkCallback: (checking: boolean) => {
-				// Ensure active view is the Markdown editor
+				// Ensure the active view is a Markdown editor
 				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (checking) return !!view;
 				if (!view || view.sourceMode == undefined) return false;
 				let doc = view.sourceMode.cmEditor;
-				//@ts-ignore
-				indexFootnotes(doc, CodeMirror);
+				//@ts-ignore (use the global CodeMirror instance provided by Obsidian)
+				tidyFootnotes(doc, CodeMirror);
 			}
 		});
 	}

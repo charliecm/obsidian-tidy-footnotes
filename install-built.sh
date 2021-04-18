@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 VAULT="$1"
-TARGET="$VAULT/.obsidian/plugins/footnotes-indexer"
+TARGET="$VAULT/.obsidian/plugins/tidy-footnotes"
 mkdir -p $TARGET
 rm -f "$TARGET/main.js" "$TARGET/styles.css" "$TARGET/manifest.json"
 if [[ $2 == "-d" ]]; then
