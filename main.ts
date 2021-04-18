@@ -98,8 +98,6 @@ export default class MyPlugin extends Plugin {
 								value: ''
 							});
 						}
-
-						console.log(marker, definitionsIndexed);
 					}
 				}
 
@@ -130,8 +128,6 @@ export default class MyPlugin extends Plugin {
 					}
 					definitionsStr += `[^${key}]:${definition.value}\n`;
 				});
-
-				// console.log(markers, definitions, definitionsIndexed);
 
 				const markersCount = markers.length;
 				for (let i = markersCount - 1; i >= 0; i--) {
@@ -174,7 +170,6 @@ export default class MyPlugin extends Plugin {
 				if (firstDefinitionLine == -1) {
 					// If there are no definitions, add definitions list at the end
 					const lineCount = doc.lineCount();
-					console.log(lineCount, definitionsStr);
 					doc.replaceRange("\n\n" + definitionsStr, 
 						{ line: lineCount, ch: 0 },
 						{ line: lineCount, ch: Infinity}
