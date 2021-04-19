@@ -17,7 +17,7 @@ From inside Obsidian:
 3. Click **Browse**, search for **Tidy Footnotes**, and click **Install**.
 4. Click the toggle button to enable the plugin.
 
-For manual installation, download this repo and copy over `main.js`, `styles.css`, and `manifest.json` to your vault: `VaultFolder/.obsidian/plugins/tidy-footnotes/`.
+For manual installation, download this repo and copy over `main.js` and `manifest.json` to your vault: `VaultFolder/.obsidian/plugins/tidy-footnotes/`.
 
 ## How to Use
 
