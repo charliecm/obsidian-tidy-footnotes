@@ -1,5 +1,5 @@
 import tidyFootnotes from './tidyFootnotes';
-import * as CodeMirror from "codemirror";
+import * as CodeMirror from 'codemirror';
 
 function getValue(text: string): string {
   let doc = CodeMirror.Doc(text);
@@ -7,20 +7,20 @@ function getValue(text: string): string {
   return doc.getValue().trim();
 }
 
-test("No footnotes should not change anything", () => {
-  let value = getValue("Hello world!");
-  expect(value).toBe("Hello world!");
+test('No footnotes should not change anything', () => {
+  let value = getValue('Hello world!');
+  expect(value).toBe('Hello world!');
 });
 
-test("Footnote markers without definitions should add empty definitions at the end", () => {
-  let value = getValue("[^1][^2]");
+test('Footnote markers without definitions should add empty definitions at the end', () => {
+  let value = getValue('[^1][^2]');
   expect(value).toBe(`[^1][^2]
 
 [^1]:
 [^2]:`);
 });
 
-test("Footnotes should be re-numbered consecutively", () => {
+test('Footnotes should be re-numbered consecutively', () => {
   let value = getValue(`a[^1]b
 [^3]c[^2]d
 
@@ -35,14 +35,14 @@ test("Footnotes should be re-numbered consecutively", () => {
 [^3]:`);
 });
 
-test("Definitions without a marker should remain the same", () => {
+test('Definitions without a marker should remain the same', () => {
   let value = getValue(`[^1]: A
 [^2]: B`);
   expect(value).toBe(`[^1]: A
 [^2]: B`);
 });
 
-test("Multi-line definitions should stay together", () => {
+test('Multi-line definitions should stay together', () => {
   let value = getValue(`Start
 [^2]: A
 \tB
