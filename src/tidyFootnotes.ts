@@ -23,7 +23,7 @@ function isNumeric(value: any): boolean {
 	return !isNaN(value - parseFloat(value));
 }
 
-export default function tidyFootnotes(doc: CodeMirror.Doc, CodeMirror: any) {
+export default function tidyFootnotes(doc: CodeMirror.Doc) {
 	let markers: Marker[] = [];
 	let definitions = new Map<string, string>();
 	let firstDefinitionLine = -1
@@ -38,9 +38,9 @@ export default function tidyFootnotes(doc: CodeMirror.Doc, CodeMirror: any) {
 		let match;
 
 		if (prevKey.length) {
-			const str = new CodeMirror.StringStream(line);
+			const hasIndent = /^[ \t]/.test(line);
 			const isLastLine = i === (lineCount - 1);
-			if (str.indentation() > 0 || (line.length === 0 && !isLastLine)) {
+			if (hasIndent || (line.length === 0 && !isLastLine)) {
 				// Append line to the previous footnote definition
 				const value = definitions.get(prevKey);
 				definitions.set(prevKey, value + "\n" + line);

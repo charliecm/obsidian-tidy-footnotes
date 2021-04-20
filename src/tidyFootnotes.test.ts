@@ -3,7 +3,7 @@ import * as CodeMirror from "codemirror";
 
 function getValue(text: string): string {
   let doc = CodeMirror.Doc(text);
-  tidyFootnotes(doc, CodeMirror);
+  tidyFootnotes(doc);
   return doc.getValue().trim();
 }
 
