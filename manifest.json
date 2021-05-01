@@ -6,5 +6,5 @@
 	"description": "Tidy your footnotes seamlessly.",
 	"author": "Charlie Chao",
 	"authorUrl": "https://github.com/charliecm",
-	"isDesktopOnly": false
+	"isDesktopOnly": true
 }
