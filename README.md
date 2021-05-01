@@ -39,7 +39,12 @@ Run `Tidy Footnotes: Tidy Footnotes` from the Command Palette. Or, set it as a h
 
 **Note:** [CodeMirror](https://github.com/codemirror/CodeMirror) is imported for testing with the `Doc` interface. It may break in the future if the version no longer matches what Obsidian uses.
 
-**Release:** Bump version in `manifest.json` and `versions.json`. Add changes in `CHANGELOG.md`. Add new release in Github with the changelog texts and the built `main.js` and `manifest.json` attached.
+## Release
+
+1. Run `yarn build`.
+2. Bump version in `manifest.json` and `versions.json`.
+3. Add changes in `CHANGELOG.md`.
+4. Add a new release in Github with the changelog texts and the built `main.js` and `manifest.json` attached.
 
 ## Support
 
