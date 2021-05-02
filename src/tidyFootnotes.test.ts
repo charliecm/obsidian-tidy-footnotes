@@ -1,8 +1,54 @@
-import tidyFootnotes from './tidyFootnotes';
 import * as CodeMirror from 'codemirror';
+import { Editor, EditorCommand, EditorPosition, EditorRange, EditorSelection, EditorTransaction } from 'obsidian';
+import tidyFootnotes from './tidyFootnotes';
+
+class MockEditor implements Editor {
+  doc: CodeMirror.Doc;
+  constructor(text: string) {
+    this.doc = CodeMirror.Doc(text);
+  }
+  
+  getValue(): string {
+    return this.doc.getValue();
+  }
+  getLine(line: number): string {
+    return this.doc.getLine(line);
+  }
+  lineCount(): number {
+    return this.doc.lineCount();
+  }
+  replaceRange(replacement: string, from: EditorPosition, to?: EditorPosition, origin?: string): void {
+    this.doc.replaceRange(replacement, from, to, origin);
+  }
+  getDoc(): this { return this }
+  refresh(): void {}
+  setValue(content: string): void {}
+  setLine(n: number, text: string): void {}
+  lastLine(): number { return }
+  getSelection(): string { return }
+  somethingSelected(): boolean { return }
+  getRange(from: EditorPosition, to: EditorPosition): string { return }
+  replaceSelection(replacement: string): void {}
+  getCursor(string?: 'from' | 'to' | 'head' | 'anchor'): EditorPosition { return }
+  listSelections(): EditorSelection[] { return }
+  setCursor(pos: number | EditorPosition, ch?: number): void {}
+  setSelection(anchor: EditorPosition, head?: EditorPosition): void {}
+  focus(): void {}
+  blur(): void {}
+  hasFocus(): boolean { return }
+  getScrollInfo(): { top: number; left: number; } { return }
+  scrollTo(x?: number, y?: number): void {}
+  scrollIntoView(range: EditorRange, margin?: number): void {}
+  undo(): void {}
+  redo(): void {}
+  exec(command: EditorCommand): void {}
+  transaction(tx: EditorTransaction): void {}
+  posToOffset(pos: EditorPosition): number { return }
+  offsetToPos(offset: number): EditorPosition { return }
+}
 
 function getValue(text: string): string {
-  let doc = CodeMirror.Doc(text);
+  let doc = new MockEditor(text);
   tidyFootnotes(doc);
   return doc.getValue().trim();
 }

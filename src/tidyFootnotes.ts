@@ -1,3 +1,5 @@
+import { Editor } from 'obsidian';
+
 const reKey = /\[\^(.+?(?=\]))\]/gi;
 const reDefinition = /\[\^(.+)\]\:/;
 
@@ -23,17 +25,17 @@ function isNumeric(value: any): boolean {
 	return !isNaN(value - parseFloat(value));
 }
 
-export default function tidyFootnotes(doc: CodeMirror.Doc) {
+export default function tidyFootnotes(editor: Editor) {
 	let markers: Marker[] = [];
 	let definitions = new Map<string, string>();
 	let firstDefinitionLine = -1
 	let definitionsIndexed = new Map<string, Definition>();
 
 	// Iterate through each line
-	const lineCount = doc.lineCount()
+	const lineCount = editor.lineCount()
 	let prevKey = '';
 	for (let i = 0; i < lineCount; i++) {
-		const line = doc.getLine(i);
+		const line = editor.getLine(i);
 		let isDefinition = false
 		let match;
 
@@ -140,14 +142,14 @@ export default function tidyFootnotes(doc: CodeMirror.Doc) {
 		if (marker.isDefinition) {
 			if (markerLine === firstDefinitionLine) {
 				// Replace first definition line with list of indexed definitions
-				doc.replaceRange(definitionsStr, 
+				editor.replaceRange(definitionsStr, 
 					{ line: markerLine, ch: 0 },
 					{ line: markerLine + 1 + marker.length, ch: 0}
 				);
 				continue;
 			}
 			// Remove line(s)
-			doc.replaceRange('', 
+			editor.replaceRange('', 
 				{ line: markerLine, ch: 0 },
 				{ line: markerLine + 1 + marker.length, ch: 0}
 			);
@@ -160,12 +162,12 @@ export default function tidyFootnotes(doc: CodeMirror.Doc) {
 		if (marker.key === newKey) continue;
 
 		// Replace footnote key in line with the new one
-		const line = doc.getLine(markerLine);
+		const line = editor.getLine(markerLine);
 		const prefix = line.substring(0, marker.index);
 		const newMarker = `[^${newKey}]`;
 		const suffix = line.substr(marker.index + marker.length);
 		const newLine = prefix + newMarker + suffix;
-		doc.replaceRange(newLine, 
+		editor.replaceRange(newLine, 
 			{ line: markerLine, ch: 0 },
 			{ line: markerLine, ch: Infinity }
 		);
@@ -173,8 +175,8 @@ export default function tidyFootnotes(doc: CodeMirror.Doc) {
 
 	if (firstDefinitionLine == -1) {
 		// If there are no definitions, add definitions list at the end
-		const lineCount = doc.lineCount();
-		doc.replaceRange("\n\n" + definitionsStr, 
+		const lineCount = editor.lineCount();
+		editor.replaceRange("\n\n" + definitionsStr, 
 			{ line: lineCount, ch: 0 },
 			{ line: lineCount, ch: Infinity}
 		);

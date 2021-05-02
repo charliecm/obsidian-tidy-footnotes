@@ -11,8 +11,8 @@ export default class TidyFootnotes extends Plugin {
 				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (checking) return !!view;
 				if (!view || view.sourceMode == undefined) return false;
-				let doc = view.sourceMode.cmEditor;
-				tidyFootnotes(doc);
+				let editor = view.editor;
+				tidyFootnotes(editor);
 			}
 		});
 	}
