@@ -5,7 +5,7 @@ Adds a command in [Obsidian](https://obsidian.md) that tidies your [footnotes](h
 - Consolidates all footnote definitions into one place, sorted by appearance
 - Re-indexes numbered footnotes (e.g., `[^1][^4][^2]` becomes `[^1][^2][^3]`)
 
-<img src="../main/demo.gif?raw=true" alt="Demo" />
+![Demo](https://raw.githubusercontent.com/charliecm/obsidian-tidy-footnotes/main/demo.gif)
 
 Inspired by [obsidian-footnotes](https://github.com/akaalias/obsidian-footnotes) plugin.
 
