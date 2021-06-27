@@ -1,5 +1,5 @@
 import * as CodeMirror from 'codemirror';
-import { Editor, EditorCommand, EditorPosition, EditorRange, EditorSelection, EditorTransaction } from 'obsidian';
+import { Editor, EditorCommandName, EditorPosition, EditorRange, EditorSelection, EditorTransaction } from 'obsidian';
 import tidyFootnotes from './tidyFootnotes';
 
 class MockEditor implements Editor {
@@ -7,7 +7,6 @@ class MockEditor implements Editor {
   constructor(text: string) {
     this.doc = CodeMirror.Doc(text);
   }
-  
   getValue(): string {
     return this.doc.getValue();
   }
@@ -41,7 +40,7 @@ class MockEditor implements Editor {
   scrollIntoView(range: EditorRange, margin?: number): void {}
   undo(): void {}
   redo(): void {}
-  exec(command: EditorCommand): void {}
+  exec(command: EditorCommandName): void {}
   transaction(tx: EditorTransaction): void {}
   posToOffset(pos: EditorPosition): number { return }
   offsetToPos(offset: number): EditorPosition { return }
