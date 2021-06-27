@@ -140,19 +140,24 @@ export default function tidyFootnotes(editor: Editor) {
 		const marker = markers[i];
 		const markerLine = marker.line;
 		if (marker.isDefinition) {
+			let rangeStart, rangeEnd;
+			const lineEnd = markerLine + 1 + marker.length;
+			if (lineEnd === editor.lineCount()) {
+				// Replace from previous to current line to fix CodeMirror 6 error
+				rangeStart = { line: markerLine, ch: 0 };
+				rangeEnd = { line: lineEnd - 1, ch: Infinity };
+			} else {
+				// Replace from current to next line
+				rangeStart = { line: markerLine, ch: 0 };
+				rangeEnd = { line: lineEnd, ch: 0 };
+			}
 			if (markerLine === firstDefinitionLine) {
 				// Replace first definition line with list of indexed definitions
-				editor.replaceRange(definitionsStr, 
-					{ line: markerLine, ch: 0 },
-					{ line: markerLine + 1 + marker.length, ch: 0}
-				);
+				editor.replaceRange(definitionsStr, rangeStart, rangeEnd);
 				continue;
 			}
 			// Remove line(s)
-			editor.replaceRange('', 
-				{ line: markerLine, ch: 0 },
-				{ line: markerLine + 1 + marker.length, ch: 0}
-			);
+			editor.replaceRange('', rangeStart, rangeEnd);
 			continue;
 		}
 
