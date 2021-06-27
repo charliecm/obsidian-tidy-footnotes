@@ -95,15 +95,15 @@ test('Multi-line definitions should stay together', () => {
 \tC
 
 End
-[^1]: A
-\tB`);
+[^1]: D
+\tE`);
   expect(value).toBe(`Start
 [^1]: A
 \tB
 
 \tC
 
-[^2]: A
-\tB
+[^2]: D
+\tE
 End`);
 });
