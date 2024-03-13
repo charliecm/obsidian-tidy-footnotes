@@ -1,7 +1,7 @@
 import { Editor } from 'obsidian';
 
-const reKey = /\[\^(.+?(?=\]))\]/gi;
-const reDefinition = /\[\^(.+)\]\:/;
+const reKey = /\[\^([^\s]+?(?=\]))\]/gi;
+const reDefinition = /\[\^([^\s]+)\]:/;
 
 /** An existing footnote key or definition. */
 interface Marker {
