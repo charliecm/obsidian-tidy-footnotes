@@ -1,5 +1,5 @@
 import * as CodeMirror from 'codemirror';
-import { Editor, EditorCommandName, EditorPosition, EditorRange, EditorSelection, EditorTransaction } from 'obsidian';
+import { Editor, EditorCommandName, EditorPosition, EditorRange, EditorSelection, EditorSelectionOrCaret, EditorTransaction } from 'obsidian';
 import tidyFootnotes from './tidyFootnotes';
 
 class MockEditor implements Editor {
@@ -32,18 +32,21 @@ class MockEditor implements Editor {
   listSelections(): EditorSelection[] { return }
   setCursor(pos: number | EditorPosition, ch?: number): void {}
   setSelection(anchor: EditorPosition, head?: EditorPosition): void {}
+  setSelections(ranges: EditorSelectionOrCaret[], main?: number): void {}
   focus(): void {}
   blur(): void {}
   hasFocus(): boolean { return }
   getScrollInfo(): { top: number; left: number; } { return }
   scrollTo(x?: number, y?: number): void {}
-  scrollIntoView(range: EditorRange, margin?: number): void {}
+  scrollIntoView(range: EditorRange, center?: boolean): void {}
   undo(): void {}
   redo(): void {}
   exec(command: EditorCommandName): void {}
   transaction(tx: EditorTransaction): void {}
   posToOffset(pos: EditorPosition): number { return }
   offsetToPos(offset: number): EditorPosition { return }
+  wordAt(pos: EditorPosition): EditorRange | null { return }
+  processLines() {}
 }
 
 function getValue(text: string): string {
