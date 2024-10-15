@@ -110,3 +110,10 @@ End
 \tE
 End`);
 });
+
+test('Footnote with an extra square bracket before colon should not be identified as a definition', () => {
+  let value = getValue(`[^1]]:`);
+  expect(value).toBe(`[^1]]:
+
+[^1]:`);
+});
