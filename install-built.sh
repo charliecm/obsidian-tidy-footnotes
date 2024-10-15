@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 VAULT="$1"
-TARGET="$VAULT/.obsidian/plugins/tidy-footnotes"
-mkdir -p $TARGET
+TARGET="$VAULT/.obsidian/plugins/obsidian-tidy-footnotes"
+mkdir -p "$TARGET"
 rm -f "$TARGET/main.js" "$TARGET/manifest.json"
 if [[ $2 == "-d" ]]; then
   # Create symbolic links
