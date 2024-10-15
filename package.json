@@ -4,25 +4,26 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "rollup --config rollup.config.js -w",
-    "build": "rollup --config rollup.config.js --environment BUILD:production",
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "version": "node version-bump.mjs && git add manifest.json versions.json",
     "test": "jest"
   },
   "keywords": [],
   "author": "Charlie Chao",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-typescript": "^6.0.0",
     "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.2",
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
+    "builtin-modules": "3.3.0",
     "codemirror": "^5.62.0",
+    "esbuild": "0.17.3",
     "jest": "^26.6.3",
-    "obsidian": "0.12.5",
-    "rollup": "^2.32.1",
+    "obsidian": "latest",
     "ts-jest": "^26.5.5",
-    "tslib": "^2.0.3",
-    "typescript": "^4.0.3"
+    "tslib": "2.4.0",
+    "typescript": "4.7.4"
   }
 }
