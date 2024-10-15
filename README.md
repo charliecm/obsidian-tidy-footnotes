@@ -32,19 +32,24 @@ Run `Tidy Footnotes: Tidy Footnotes` from the Command Palette. Or, set it as a h
 ## Development
 
 1. Clone this repo.
-2. `npm i` or `yarn` to install dependencies.
-3. `npm run dev` to start compilation in watch mode.
+2. `yarn` to install dependencies.
+3. `yarn dev` to start compilation in watch mode.
 4. `bash install-built.sh /path/to/your/vault -d` to create symbolic links of built files to your vault for quick development.
-5. `npm run test` to run unit tests.
 
 **Note:** [CodeMirror](https://github.com/codemirror/CodeMirror) is imported for testing with the `Doc` interface. It may break in the future if the version no longer matches what Obsidian uses.
 
 ## Release
 
 1. Run `yarn build`.
-2. Bump version in `manifest.json` and `versions.json`.
+2. Run `npm version [patch/minor/major]` to bump version in `manifest.json` and `versions.json`.
 3. Add changes in `CHANGELOG.md`.
-4. Add a new release in Github with the changelog texts and the built `main.js` and `manifest.json` attached.
+4. Add a new version tag and push it.
+    ```
+    git tag -a 1.0.1 -m "1.0.1"
+    git push origin 1.0.1
+    ```
+5. Go to “Releases” in GitHub and edit the latest release (created by GitHub Actions). Insert the changelog texts in the description and ensure `main.js` and `manifest.json` are attached. 
+6. Click “Publish release”.
 
 ## Support
 
